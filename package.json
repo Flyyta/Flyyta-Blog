@@ -1,0 +1,19 @@
+{
+  "name": "flyyta-blog",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "node ./src/index.js",
+    "dev": "nodemon ./src/index.js -e .md"
+  },
+  "keywords": [],
+  "author": "Abhishek Mogaveera & Devika Olkar",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "front-matter": "^3.1.0",
+    "highlight.js": "^9.18.1",
+    "marked": "^0.8.0"
+  }
+}
