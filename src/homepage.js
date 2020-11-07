@@ -1,15 +1,15 @@
 const config = require("./config");
 const fs = require("fs");
 
-const homepage = posts => `
+const homepage = (posts) => `
 <!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="description" content="${config.blogDescription}" />
-        <link rel="stylesheet" href="./assets/styles/grotesk.light.min.css">
-        <link rel="stylesheet" href="./assets/styles/main.min.css">
+        <link rel="stylesheet" href="./assets/styles/grotesk.light.css">
+        <link rel="stylesheet" href="./assets/styles/main.css">
         <title>${config.blogName}</title>
     </head>
     <body>
@@ -26,7 +26,7 @@ const homepage = posts => `
             <div class="posts">
                 ${posts
                   .map(
-                    post => `<div class="post">
+                    (post) => `<div class="post">
                     <h3><a href="./${post.path}">${
                       post.attributes.title
                     }</a></h3>
@@ -49,8 +49,8 @@ const homepage = posts => `
 </html>
 `;
 
-const addHomePage = posts => {
-  fs.writeFile(`${config.dev.outdir}/index.html`, homepage(posts), e => {
+const addHomePage = (posts) => {
+  fs.writeFile(`${config.dev.outdir}/index.html`, homepage(posts), (e) => {
     if (e) throw e;
     console.log(`index.html was created successfully`);
   });

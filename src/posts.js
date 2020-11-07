@@ -3,16 +3,16 @@ const fm = require("front-matter");
 const fs = require("fs");
 const marked = require("./marked");
 
-const posthtml = data => `
+const posthtml = (data) => `
 <!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="description" content="${data.attributes.description}" />
-        <link rel="stylesheet" href="/assets/styles/grotesk.light.min.css">
-        <link rel="stylesheet" href="/assets/styles/highlights.min.css">
-        <link rel="stylesheet" href="/assets/styles/main.min.css">
+        <link rel="stylesheet" href="/assets/styles/grotesk.light.css">
+        <link rel="stylesheet" href="/assets/styles/highlights.css">
+        <link rel="stylesheet" href="/assets/styles/main.css">
         <title>${data.attributes.title}</title>
     </head>
     <body>
@@ -41,7 +41,7 @@ const posthtml = data => `
 </html>
 `;
 
-const createPost = postPath => {
+const createPost = (postPath) => {
   const data = fs.readFileSync(`${config.dev.postsdir}/${postPath}.md`, "utf8");
   const content = fm(data);
   content.body = marked(content.body);
@@ -49,15 +49,15 @@ const createPost = postPath => {
   return content;
 };
 
-const createPosts = posts => {
-  posts.forEach(post => {
+const createPosts = (posts) => {
+  posts.forEach((post) => {
     if (!fs.existsSync(`${config.dev.outdir}/${post.path}`))
       fs.mkdirSync(`${config.dev.outdir}/${post.path}`);
 
     fs.writeFile(
       `${config.dev.outdir}/${post.path}/index.html`,
       posthtml(post),
-      e => {
+      (e) => {
         if (e) throw e;
         console.log(`${post.path}/index.html was created successfully`);
       }
@@ -67,5 +67,5 @@ const createPosts = posts => {
 
 module.exports = {
   createPost: createPost,
-  createPosts: createPosts
+  createPosts: createPosts,
 };
