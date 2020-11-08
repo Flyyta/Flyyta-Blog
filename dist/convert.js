@@ -2,9 +2,14 @@ const fs = require("fs");
 const util = require("util");
 const config = require("./config");
 const readFile = util.promisify(fs.readFile);
-const f = (posts) => {
+
+const regex = /\{(.*?)\}/g;
+const moveFrom = config.filePath.postsdir;
+const moveTo = config.filePath.outdir;
+
+const postMapFunction = (posts) => {
   return `
-<div class="posts">
+          <div class="posts">
               ${posts
                 .map(
                   (post) => `<div class="post">
@@ -17,22 +22,21 @@ const f = (posts) => {
                 )
                 .join("")}
           </div>
-`;
+        `;
 };
-const regex = /\{(.*?)\}/g;
-const moveFrom = config.dev2.postsdir;
-const moveTo = config.dev2.outdir;
 
+//Function to read file asynchronously
 const readFileAsync = async (filename) => {
   return readFile(`${moveFrom}/${filename}`);
 };
 
+//Function to build files asynchronously
 const convertFiles = async (posts) => {
   let markupFromExternalFile;
   const files = await fs.promises.readdir(moveFrom);
   for (const file of files) {
     if (file == "index.html") {
-      let a = f(posts);
+      let a = postMapFunction(posts);
       config.posts = a;
     }
     readFileAsync(file)
@@ -57,4 +61,5 @@ const convertFiles = async (posts) => {
       .catch((err) => console.log(err));
   }
 };
+
 module.exports = convertFiles;

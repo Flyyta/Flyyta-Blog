@@ -1,15 +1,15 @@
+// The file config.js defines your site’s metadata and other general configuration.
+
 const config = {
-  blogName: "Static site gen",
-  authorName: "Abhishek Mogaveera",
-  authorDescription:
-    "a web developer and design enthusiast who's building stuff in Mumbai",
-  authorWebsite: "https://abhishekm.netlify.app/",
-  blogDescription: "Sharing what I learn as a web developer & designer",
-  dev: {
+  siteName: "Flyyta Blog",
+  siteHeading: "Website created using Flyyta",
+  siteAuthorName: "Flyyta",
+  siteAuthorWebsite: "https://flyyta.netlify.app",
+  postPath: {
     postsdir: "./content",
     outdir: "./public",
   },
-  dev2: {
+  filePath: {
     postsdir: "./src",
     outdir: "./public",
   },

@@ -3,6 +3,7 @@ const fm = require("front-matter");
 const fs = require("fs");
 const marked = require("./marked");
 
+//Single Blog Post Template
 const posthtml = (data) => `
 <!DOCTYPE html>
 <html lang="en">
@@ -41,21 +42,26 @@ const posthtml = (data) => `
 </html>
 `;
 
+//Read and process markdown file
 const createPost = (postPath) => {
-  const data = fs.readFileSync(`${config.dev.postsdir}/${postPath}.md`, "utf8");
+  const data = fs.readFileSync(
+    `${config.postPath.postsdir}/${postPath}.md`,
+    "utf8"
+  );
   const content = fm(data);
   content.body = marked(content.body);
   content.path = postPath;
   return content;
 };
 
+//Build blog posts
 const createPosts = (posts) => {
   posts.forEach((post) => {
-    if (!fs.existsSync(`${config.dev.outdir}/${post.path}`))
-      fs.mkdirSync(`${config.dev.outdir}/${post.path}`);
+    if (!fs.existsSync(`${config.postPath.outdir}/${post.path}`))
+      fs.mkdirSync(`${config.postPath.outdir}/${post.path}`);
 
     fs.writeFile(
-      `${config.dev.outdir}/${post.path}/index.html`,
+      `${config.postPath.outdir}/${post.path}/index.html`,
       posthtml(post),
       (e) => {
         if (e) throw e;
