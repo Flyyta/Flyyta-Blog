@@ -9,6 +9,10 @@ const config = {
     postsdir: "./content",
     outdir: "./public",
   },
+  dev2: {
+    postsdir: "./src",
+    outdir: "./public",
+  },
 };
 
 module.exports = config;

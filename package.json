@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "node ./src/index.js",
-    "start": "nodemon ./src/index.js -e md,js -q",
-    "dev": "nodemon ./src/index.js -e .md,.js -q"
+    "build": "node ./dist/index.js",
+    "start": "nodemon ./dist/index.js -e md,js -q",
+    "dev": "nodemon ./dist/index.js -e .md,.js -q"
   },
   "keywords": [],
   "author": "Abhishek Mogaveera & Devika Olkar",
