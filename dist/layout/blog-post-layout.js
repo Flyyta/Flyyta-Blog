@@ -1,3 +1,4 @@
+const config = require("../config");
 //Single Blog Post Template
 const singleBlogTemplate = (data) => `
 <!DOCTYPE html>
@@ -6,13 +7,13 @@ const singleBlogTemplate = (data) => `
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="description" content="${data.attributes.description}" />
-        <link rel="stylesheet" href="/assets/styles/grotesk.light.css">
+        <link rel="stylesheet" href="/assets/styles/flyyta.light.css">
         <link rel="stylesheet" href="/assets/styles/highlights.css">
         <link rel="stylesheet" href="/assets/styles/main.css">
         <title>${data.attributes.title}</title>
     </head>
     <body>
-        <div class="grotesk">
+        <div class="flyyta">
             <header>
                 <a href="/">Go back home</a>
                 <p>—</p>
@@ -30,7 +31,7 @@ const singleBlogTemplate = (data) => `
             <footer>
                 ${`<p>© ${new Date().getFullYear()} ${
                   config.authorName
-                }, Find the code on <a href="github.com/kartiknair/blog">GitHub</a></p>`}
+                }, Find the code on <a href="github.com/Flyyta">GitHub</a></p>`}
             </footer>
         </div>
     </body>
