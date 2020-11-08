@@ -1,6 +1,6 @@
 const config = {
-  blogName: "Blog",
-  authorName: "Abhishek Mogaveer",
+  blogName: "Static site gen",
+  authorName: "Abhishek Mogaveera",
   authorDescription:
     "a web developer and design enthusiast who's building stuff in Mumbai",
   authorWebsite: "https://abhishekm.netlify.app/",
