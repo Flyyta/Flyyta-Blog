@@ -27,7 +27,6 @@ const createPosts = (posts) => {
       singleBlogTemplate(post),
       (e) => {
         if (e) throw e;
-        console.log(`${post.path}/index.html was created successfully`);
       }
     );
   });

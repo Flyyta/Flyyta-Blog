@@ -35,7 +35,6 @@ const convertFiles = async (posts) => {
         }
         fs.writeFile(`${moveTo}/${file}`, finalMarkup, function (err) {
           if (err) throw err;
-          console.log("Saved!");
         });
       })
       .catch((err) => console.log(err));
