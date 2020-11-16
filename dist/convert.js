@@ -19,8 +19,8 @@ const convertFiles = async (posts) => {
   const files = await fs.promises.readdir(moveFrom);
   for (const file of files) {
     if (file == "index.html") {
-      let a = postMapFunction(posts);
-      config.posts = a;
+      let mappedPosts = postMapFunction(posts);
+      config.posts = mappedPosts;
     }
     readFileAsync(file)
       .then((res) => {
@@ -31,10 +31,7 @@ const convertFiles = async (posts) => {
           const change = changes.next();
           if (change.done) break;
           const [replacement, prop] = change.value;
-          finalMarkup = finalMarkup.replace(
-            replacement,
-            config[prop.split(".").pop()]
-          );
+          finalMarkup = finalMarkup.replace(replacement, config[prop]);
         }
         fs.writeFile(`${moveTo}/${file}`, finalMarkup, function (err) {
           if (err) throw err;

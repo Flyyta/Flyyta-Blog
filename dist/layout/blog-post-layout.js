@@ -29,9 +29,7 @@ const singleBlogTemplate = (data) => `
             </div>
 
             <footer>
-                ${`<p>© ${new Date().getFullYear()} ${
-                  config.siteAuthorName
-                }, Find the code on <a href="github.com/Flyyta">GitHub</a></p>`}
+                ${`<p>© ${new Date().getFullYear()} {siteAuthorName}, Find the code on <a href="github.com/Flyyta">GitHub</a></p>`}
             </footer>
         </div>
     </body>
