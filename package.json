@@ -1,13 +1,17 @@
 {
   "name": "flyyta-blog",
   "version": "1.0.0",
-  "description": "",
+  "description": "flyyta-blog",
   "main": "index.js",
   "scripts": {
     "build": "node ./dist/index.js",
     "start": "nodemon ./dist/index.js -e md,js -q",
     "dev": "nodemon ./dist/index.js -e .md,.js -q"
   },
+  "repository": {
+  "type": "git",
+  "url": "git://github.com/Flyyta/Flyyta-Blog.git"
+},
   "keywords": [],
   "author": "Abhishek Mogaveera & Devika Olkar",
   "license": "ISC",
