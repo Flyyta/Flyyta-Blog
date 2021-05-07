@@ -4,7 +4,7 @@ date: 1583777940720
 description: The process of building a simple static site generator powered by markdown using only node.js
 ---
 
-This blog is built using [Gatsby.js](https://gatsbyjs.org) an awesome static site generator for React (well it was built using Gatsby but I ended up switching to this project as you'll find out at the end). Gatsby was pretty easy to pick up and all I had to do was customize the gatsby-blog-starter to get something great. But I was curious how the generator so I decided to try and build a simple/barebones static site generator using nodejs. Feel free to follow along with the code on [GitHub](https://github.com/kartiknair/blog).
+This blog is built using [Gatsby.js](https://gatsbyjs.org) an awesome static site generator for React (well it was built using Gatsby but I ended up switching to this project as you'll find out at the end). Gatsby was pretty easy to pick up and all I had to do was customize the gatsby-blog-starter to get something great. But I was curious how the generator so I decided to try and build a simple/barebones static site generator using nodejs. Feel free to follow along with the code on [GitHub](https://github.com/Abhishek971999).
 
 ### Why SSGs?
 
@@ -12,7 +12,7 @@ I love static site generators a lot because it allows you to use whatever heavy/
 
 For this project here's the lighthouse score for the final result:
 
-![The lighthouse score for this website (Shows 99 100 100 100)](../assets/images/node-ssg-1.png)
+![The lighthouse score for this website (Shows 99 100 100 100)](../assets/img/node-ssg-1.png)
 
 I know right! Pretty amazing. The only reason it didn't ace it was because of the heavy fonts but that's fine because they add enough aesthetic value for me to keep them.
 
@@ -81,8 +81,8 @@ We can put the decisions we made in a `config.js` file so we can access it from 
 const config = {
   dev: {
     postsdir: "./content",
-    outdir: "./public"
-  }
+    outdir: "./public",
+  },
 };
 
 module.exports = config;
@@ -103,7 +103,7 @@ const config = require("./config");
 
 const posts = fs
   .readdirSync(config.dev.postsdir)
-  .map(post => post.slice(0, -3));
+  .map((post) => post.slice(0, -3));
 
 console.log(posts);
 ```
@@ -143,7 +143,7 @@ const config = require("./config");
 const fm = require("front-matter");
 const marked = require("marked");
 
-const createPost = postPath => {
+const createPost = (postPath) => {
   const data = fs.readFileSync(`${config.dev.postsdir}/${postPath}.md`, "utf8");
   const content = fm(data);
   content.body = marked(content.body);
@@ -164,8 +164,8 @@ const createPost = require("./posts.js");
 
 const posts = fs
   .readdirSync(config.dev.postsdir)
-  .map(post => post.slice(0, -3))
-  .map(post => postMethods.createPost(post));
+  .map((post) => post.slice(0, -3))
+  .map((post) => postMethods.createPost(post));
 
 console.log(posts);
 ```
@@ -179,7 +179,7 @@ const marked = require("marked");
 
 marked.setOptions({
   renderer: new marked.Renderer(),
-  highlight: function(code, language) {
+  highlight: function (code, language) {
     const hljs = require("highlight.js");
     const validLanguage = hljs.getLanguage(language) ? language : "plaintext";
     return hljs.highlight(validLanguage, code).value;
@@ -190,7 +190,7 @@ marked.setOptions({
   sanitize: false,
   smartLists: true,
   smartypants: false,
-  xhtml: false
+  xhtml: false,
 });
 
 module.exports = marked;
@@ -209,7 +209,7 @@ if (!fs.existsSync(config.dev.outdir)) fs.mkdirSync(config.dev.outdir);
 Now in our `posts.js` file let us make a `createPosts()` function, that will create and write the HTML files to the public directory. But before that we need a helper function called `posthtml` that will take the post JSON object and return a complete HTML page that we can simply write to a file. We will use the power of template literals to make our life easier in this function here's how it looks:
 
 ```js
-const posthtml = data => `
+const posthtml = (data) => `
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -238,15 +238,15 @@ The reason I create a `new Date()` when adding the date to the post is so that a
 Now we can create a function called `createPosts()` that'll take the output of the `createPost()` function and generate an HTML file. Here's how it looks:
 
 ```js
-const createPosts = posts => {
-  posts.forEach(post => {
+const createPosts = (posts) => {
+  posts.forEach((post) => {
     if (!fs.existsSync(`${config.dev.outdir}/${post.path}`))
       fs.mkdirSync(`${config.dev.outdir}/${post.path}`);
 
     fs.writeFile(
       `${config.dev.outdir}/${post.path}/index.html`,
       posthtml(post),
-      e => {
+      (e) => {
         if (e) throw e;
         console.log(`${post.path}/index.html was created successfully`);
       }
@@ -256,7 +256,7 @@ const createPosts = posts => {
 
 module.exports = {
   createPost: createPost,
-  createPosts: createPosts
+  createPosts: createPosts,
 };
 ```
 
@@ -271,8 +271,8 @@ const config = require("./config");
 
 const posts = fs
   .readdirSync(config.dev.postsdir)
-  .map(post => post.slice(0, -3))
-  .map(post => postMethods.createPost(post));
+  .map((post) => post.slice(0, -3))
+  .map((post) => postMethods.createPost(post));
 
 if (!fs.existsSync(config.dev.outdir)) fs.mkdirSync(config.dev.outdir);
 
@@ -289,15 +289,15 @@ This blog will also include a small about section in it's homepage for the autho
 const config = {
   blogName: "Blog",
   blogDescription: "Sharing what I learn as a web developer & designer",
-  authorName: "Kartik Nair",
+  authorName: "Abhishek Mogaveera",
   authorDescription:
     "a web developer and designer making lot's of stuff in Dubai",
-  authorTwitter: "https://twitter.com/kartiknair",
+  authorTwitter: "https://twitter.com/abhiisshakee",
 
   dev: {
     postsdir: "./content",
-    outdir: "./public"
-  }
+    outdir: "./public",
+  },
 };
 
 module.exports = config;
@@ -308,7 +308,7 @@ module.exports = config;
 The homepage will be the `index.html` file in the public directory. It should have a header with the blog's name and a small about section for the author. We can use template literals like we did before to generate the HTML for that. Let's call the function `homepage()` and put it in a file called `homepage.js` . Here's how that file looks now:
 
 ```js
-const homepage = posts => `
+const homepage = (posts) => `
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -333,7 +333,7 @@ const homepage = posts => `
             <div class="posts">
                 ${posts
                   .map(
-                    post => `<div class="post">
+                    (post) => `<div class="post">
                     <h3><a href="./${post.path}">${
                       post.attributes.title
                     }</a></h3>
@@ -347,9 +347,7 @@ const homepage = posts => `
             </div>
 
             <footer>
-                ${`<p>© ${new Date().getFullYear()} ${
-                  config.authorName
-                }, Find the code on <a href="github.com/kartiknair/blog">GitHub</a></p>`}
+                ${`<p>© ${new Date().getFullYear()} ${config.authorName}`}
             </footer>
         </div>
     </body>
@@ -360,8 +358,8 @@ const homepage = posts => `
 Now we need to actually create the file so we can add this HTML to it. We can make that a function called `addHomepage()` and also add that to the same file. Here's how it looks:
 
 ```js
-const addHomePage = posts => {
-  fs.writeFile(`${config.dev.outdir}/index.html`, homepage(posts), e => {
+const addHomePage = (posts) => {
+  fs.writeFile(`${config.dev.outdir}/index.html`, homepage(posts), (e) => {
     if (e) throw e;
     console.log(`index.html was created successfully`);
   });
@@ -378,9 +376,9 @@ const addHomePage = require("./homepage");
 
 const posts = fs
   .readdirSync(config.dev.postsdir)
-  .map(post => post.slice(0, -3))
-  .map(post => postMethods.createPost(post))
-  .sort(function(a, b) {
+  .map((post) => post.slice(0, -3))
+  .map((post) => postMethods.createPost(post))
+  .sort(function (a, b) {
     return b.attributes.date - a.attributes.date;
   });
 
@@ -404,7 +402,7 @@ and now you can style your blog as you like. Images also work in the same way, f
 
 ```markdown
 Here's an image:
-![Wow look at this beautiful thing](../assets/images/wow.png)
+![Wow look at this beautiful thing](../assets/img/wow.png)
 ```
 
 ### Making it look pretty
@@ -481,9 +479,3 @@ That's it for the styling. It ended up looking way better than I expected & you 
 ### Hosting
 
 I personally like using [Zeit Now](https://now.sh) for hosting but some other free options I like as well are [Netlify](https://netlify.com) and [GitHub Pages](https://github.io). Since `now` integrates so well with npm build scripts that output to a public directory, all I had to do was run `now --prod` in the root of the directory (when you run it the first time it'll ask you some configuration questions the default answer to all of them is fine). Now everytime I want to update my blog all I have to run is `now --prod` again and it'll update my blog and run `npm run build` by default.
-
-### Final Thoughts
-
-Thanks for reading this very long article. I hope you learnt a little something about nodejs. I personally learnt a lot about the `fs` api and enjoyed making this a lot. I liked it so much that I actually ended up switching my personal blog from gatsby to this. That might be a bad decision but I can always work it out later. Just a reminder you can find all the source code on GitHub so feel free to fork it or open an issue if you find something wrong.
-
-I'm gonna keep working on this to fine tune it to my needs, and maybe experiment with a few different things like maybe [lit-html](https://github.com/polymer/lit-html) or [mustache](https://github.com/janl/mustache.js/) for templating. But for now that's it for this post, see you in another one very soon. Peace ✌
