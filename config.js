@@ -20,9 +20,11 @@ const config = {
   },
   postsLayout: {
     postsdir: "./layout/singleBlog",
+    file: "blog.html",
   },
   blogListLayout: {
-    postsdir: "./layout/singleBlog",
+    postsdir: "./layout/BlogListLayout",
+    file: "layout.html",
   },
 };
 
